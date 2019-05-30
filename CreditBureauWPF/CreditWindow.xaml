@@ -1,0 +1,92 @@
+﻿<Window x:Class="CreditBureauWPF.CreditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CreditBureauWPF"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Кредиты" SizeToContent="WidthAndHeight"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="16"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="#2e3137"
+     FontFamily="{DynamicResource Lato}" WindowStartupLocation="CenterScreen">
+    <Border Background="{DynamicResource MaterialDesignPaper}" CornerRadius="15" Margin="15">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Title}" Margin="10" Grid.Row="0" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20" x:Name="labelname"/>
+            <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Margin="10" Text="Кредитный рейтинг:"/>
+                <materialDesign:RatingBar Max="10" Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" VerticalAlignment="Center" IsReadOnly="True"/>
+            </StackPanel>
+            <TextBlock Margin="10" Grid.Row="2" Visibility="{Binding Path=ActiveCredit, Converter = {StaticResource BoolToVis}}" Text="Активные кредиты" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20"/>
+            <DataGrid HorizontalContentAlignment="Center" x:Name="activeGrid" ItemsSource ="{Binding ActiveItems}"  Visibility="{Binding Path=ActiveCredit, Converter = {StaticResource BoolToVis}}" AutoGenerateColumns="False" Grid.Row="3" CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Center">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Банк" IsReadOnly="True" Binding="{Binding Bank}"/>
+                    <DataGridTextColumn Header="Сумма кредита" Binding="{Binding Sum, Converter={StaticResource CostConverter}}"/>
+                    <materialDesign:MaterialDataGridTextColumn Header="Процентная ставка" Binding="{Binding Percent, StringFormat={}{0}%}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </materialDesign:MaterialDataGridTextColumn>
+                    <materialDesign:MaterialDataGridTextColumn Header="Дата взятия кредита" IsReadOnly="True" Binding="{Binding Begin, StringFormat=\{0:dd.MM.yy\}}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </materialDesign:MaterialDataGridTextColumn>
+                    <DataGridTextColumn Header="Срок" IsReadOnly="True" Binding="{Binding Mounth}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock  Margin="10" Grid.Row="4" Visibility="{Binding Path= CloseCredit, Converter = {StaticResource BoolToVis}}" Text="Закрытые кредиты" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20"/>
+            <DataGrid HorizontalContentAlignment="Center" x:Name="closeGrid" ItemsSource="{Binding CloseItems}" Visibility="{Binding Path= CloseCredit, Converter = {StaticResource BoolToVis}}" AutoGenerateColumns="False" Grid.Row="5" CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Center">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Банк" IsReadOnly="True" Binding="{Binding Bank}"/>
+                    <DataGridTextColumn Header="Сумма кредита" Binding="{Binding Sum, Converter={StaticResource CostConverter}}"/>
+                    <materialDesign:MaterialDataGridTextColumn Header="Процентная ставка" Binding="{Binding Percent, StringFormat={}{0}%}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </materialDesign:MaterialDataGridTextColumn>
+                    <materialDesign:MaterialDataGridTextColumn Header="Дата взятия кредита" IsReadOnly="True" Binding="{Binding Begin, StringFormat=\{0:dd.MM.yy\}}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </materialDesign:MaterialDataGridTextColumn>
+                    <DataGridTextColumn Header="Срок" IsReadOnly="True" Binding="{Binding Mounth}"/>
+                    <DataGridTemplateColumn Header="Описание">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Height="20" x:Name="des" Click="des_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel HorizontalAlignment="Center"  Grid.Row="6" Orientation="Horizontal">
+                <Button Margin="15" Content= "Обновить" Command="{Binding UpdateGrid}"/>
+                <Button Margin="15" Content= "Отчет" Command="{Binding Report}"/>
+                <Button Margin="15" Content= "Погасить" Command="{Binding Pogas}" CommandParameter="{Binding ElementName=activeGrid, Path=SelectedItem}"/>
+                <Button Margin="15" Content= "Закрыть" Command="{Binding CloseWindow}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

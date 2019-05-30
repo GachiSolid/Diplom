@@ -1,0 +1,61 @@
+﻿<Window x:Class="CreditBureauWPF.CloseCreditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CreditBureauWPF"
+        mc:Ignorable="d"
+        Title="Погашение" SizeToContent ="WidthAndHeight"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     Background="#2e3137"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{StaticResource Lato}" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Border Background="{DynamicResource MaterialDesignPaper}" CornerRadius="15" Margin="15">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="10" Grid.Row="0" Text="Погашение кредита" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <CheckBox x:Name="zader" Margin="10" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignCheckBox}" Width="87" Checked="zader_Checked" Unchecked="zader_Unchecked">Задержки</CheckBox>
+                <ComboBox Text="{Binding ZaderList}" Margin="10" x:Name="zaderlist" Visibility="Collapsed" materialDesign:HintAssist.Hint="Количество задержек" HorizontalAlignment="Left">
+                    <ComboBoxItem>
+                        1-2
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        3-5
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        >5
+                    </ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <ComboBox Text="{Binding Sposob}" Grid.Row="2" x:Name="sposob" Margin="10" materialDesign:HintAssist.Hint="Способ погашения кредита" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBoxItem>
+                        Своевременная выплата
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Досрочное погашение кредита
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Судебное разбирательство
+                    </ComboBoxItem>
+                </ComboBox>
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                <CheckBox x:Name="info" Margin="10" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignCheckBox}" Checked="info_Checked" Unchecked="info_Unchecked">Доп. информация</CheckBox>
+                <TextBox Text="{Binding InfoBox}" x:Name="infoBox" VerticalScrollBarVisibility="Auto" Visibility="Collapsed" Margin="10" Height="100" Width="250" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" AcceptsReturn="True" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Дополнительная информация" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center"  Grid.Row="4" Orientation="Horizontal">
+                <Button Command="{Binding OkClick}" Margin="15" x:Name="okButton" Content="Ок"/>
+                <Button Margin="15" IsCancel="True" Content= "Отмена"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,76 @@
+﻿<Window x:Class="CreditBureauWPF.CreateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CreditBureauWPF"
+        mc:Ignorable="d"
+        Title="Добавление" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="16"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource Lato}" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="2">
+            <CheckBox Content="Человек есть в базе данных?" Checked="have_Checked" Unchecked="have_Unchecked" Style="{StaticResource MaterialDesignCheckBox}" x:Name="have">
+            </CheckBox>
+            <ComboBox Visibility="Collapsed" PreviewTextInput="number_PreviewTextInput" Text="{Binding IdText}" ItemsSource="{Binding IdSub}"  SelectedValuePath="Id" DisplayMemberPath="Id" Margin="10" x:Name="exist" materialDesign:HintAssist.Hint="Код субъекта" IsEditable="True">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </StackPanel>
+        <TextBox Text="{Binding Familiya, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" x:Name="Familiya" Margin="15" materialDesign:HintAssist.Hint="Фамилия" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewKeyDown="space" PreviewTextInput="text_PreviewTextInput"/>
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" PreviewKeyDown="space" Grid.Column="0" Grid.Row="2" x:Name="Name" Margin="15" materialDesign:HintAssist.Hint="Имя" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="text_PreviewTextInput"/>
+        <TextBox Text="{Binding Otchestvo, UpdateSourceTrigger=PropertyChanged}" PreviewKeyDown="space" Grid.Column="0" Grid.Row="3" x:Name="Otchestvo" Margin="15" materialDesign:HintAssist.Hint="Отчество" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="text_PreviewTextInput"/>
+        <ComboBox Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" x:Name="Gender" Grid.Column="0" Width="50" Height="40" HorizontalAlignment="Left" Grid.Row="4" Margin="15" materialDesign:HintAssist.Hint="Пол" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBoxItem>
+                М
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Ж
+            </ComboBoxItem>
+        </ComboBox>
+        <TextBox Text="{Binding Snils, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0: ###-###-###-##}}" MaxLength="11" PreviewKeyDown="space" Grid.Column="0" Grid.Row="5" x:Name="Passport" Margin="15" materialDesign:HintAssist.Hint="Номер СНИЛС" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="number_PreviewTextInput"/>
+        <TextBox Text="{Binding Bank}" Grid.Column="1" Grid.Row="1" x:Name="Bank" Margin="15" materialDesign:HintAssist.Hint="Банк" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="text_PreviewTextInput"/>
+        <TextBox Text="{Binding Sum, UpdateSourceTrigger=PropertyChanged}" PreviewKeyDown="space" Grid.Column="1" Grid.Row="2" x:Name="Sum" Margin="15" materialDesign:HintAssist.Hint="Сумма кредита" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="number_PreviewTextInput"/>
+        <StackPanel VerticalAlignment="Bottom" Margin="15" Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
+            <TextBox Text="{Binding Percent}" PreviewKeyDown="space" VerticalAlignment="Bottom" MaxLength="2" x:Name="Procent" materialDesign:HintAssist.Hint="Процент" PreviewTextInput="number_PreviewTextInput"/>
+            <Label Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="%"/>
+        </StackPanel>
+        <DatePicker SelectedDate="{Binding Date}" x:Name="datePicker" Margin="15" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Width="120" materialDesign:HintAssist.Hint="Дата выдачи" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+        <StackPanel Margin="15" Orientation="Horizontal" Grid.Column="1" Grid.Row="5">
+            <TextBox Text="{Binding MounthText}" VerticalAlignment="Bottom" MaxLength="2" x:Name="MounthText" materialDesign:HintAssist.Hint="Срок" PreviewTextInput="number_PreviewTextInput" TextChanged="MounthText_TextChanged"/>
+            <ComboBox Text="{Binding MounthBox}" x:Name="MounthBox" IsEnabled="False" Width="50" Height="30" Margin="10,0,0,0" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Style="{StaticResource MaterialDesignComboBox}">
+                <ComboBoxItem>Мес.</ComboBoxItem>
+                <ComboBoxItem>Лет</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <Label Content="{Binding Warn}" x:Name="createWarn" Grid.Row="6" FontSize="15" Style="{x:Null}" Foreground="Red" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" Grid.Row="7" Grid.ColumnSpan="2">
+            <Button Command="{Binding Create}" Margin="15" x:Name="createOk" Content="Ввод"/>
+            <Button Margin="15" x:Name="createCancel" IsCancel="True" Content="Отмена"/>
+        </StackPanel>
+    </Grid>
+</Window>
