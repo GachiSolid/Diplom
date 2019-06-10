@@ -10,7 +10,7 @@ using CreditBureauWPF.Models;
 
 namespace CreditBureauWPF.ViewModels
 {
-    public class CreditWindowViewModel : DependencyObject
+    public class CreditWindowViewModel : DependencyObject, INotifyPropertyChanged
     {
         UserContext db;
         public Action Close { get; set; }
@@ -25,7 +25,7 @@ namespace CreditBureauWPF.ViewModels
             set
             {
                 closeCredit = value;
-                OnPropertyChanged();
+                OnPropertyChanged("CloseCredit");
             }
         }
         private bool activeCredit;
@@ -35,7 +35,7 @@ namespace CreditBureauWPF.ViewModels
             set
             {
                 activeCredit = value;
-                OnPropertyChanged();
+                OnPropertyChanged("ActiveCredit");
             }
         }
         private int _value;
@@ -86,8 +86,8 @@ namespace CreditBureauWPF.ViewModels
             int percent = 0;
             int appealcount = 0;
             int appercent = 0;
-            activeCredit = false;
-            closeCredit = false;
+            ActiveCredit = false;
+            CloseCredit = false;
 
             Title = "Кредитная история: " + person.Familiya + " " + person.Name + " " + person.Otchestvo;
             var activecredits = db.CreditBanks.Where(c => c.PersonId.Equals(person.Id) && c.Status.Equals(false));
@@ -100,7 +100,7 @@ namespace CreditBureauWPF.ViewModels
                         a++;
                     }
                 }
-                activeCredit = true;
+                ActiveCredit = true;
             }
             ActiveItems = CollectionViewSource.GetDefaultView(activecredits.ToList());
 
@@ -112,7 +112,7 @@ namespace CreditBureauWPF.ViewModels
                     onerating += c.Score;
                     allrating++;
                 }
-                closeCredit = true;
+                CloseCredit = true;
             }
             CloseItems = CollectionViewSource.GetDefaultView(closecredits.ToList());
 

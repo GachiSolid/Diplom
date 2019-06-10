@@ -110,7 +110,7 @@ namespace CreditBureauWPF.ViewModels
         public string Converter()
         {
             string Mounth;
-            if (MounthBox == "мес.")
+            if (MounthBox == "Мес.")
             {
                 Mounth = MounthText + " " + MounthBox;
             }

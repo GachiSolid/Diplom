@@ -30,8 +30,8 @@
                 <TextBlock Margin="10" Text="Кредитный рейтинг:"/>
                 <materialDesign:RatingBar Max="10" Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" VerticalAlignment="Center" IsReadOnly="True"/>
             </StackPanel>
-            <TextBlock Margin="10" Grid.Row="2" Visibility="{Binding Path=ActiveCredit, Converter = {StaticResource BoolToVis}}" Text="Активные кредиты" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20"/>
-            <DataGrid HorizontalContentAlignment="Center" x:Name="activeGrid" ItemsSource ="{Binding ActiveItems}"  Visibility="{Binding Path=ActiveCredit, Converter = {StaticResource BoolToVis}}" AutoGenerateColumns="False" Grid.Row="3" CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Center">
+            <TextBlock Margin="10" Grid.Row="2" Visibility="{Binding Path=ActiveCredit, Converter = {StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" Text="Активные кредиты" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20"/>
+            <DataGrid HorizontalContentAlignment="Center" x:Name="activeGrid" ItemsSource ="{Binding ActiveItems}"  Visibility="{Binding Path=ActiveCredit, Converter = {StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Grid.Row="3" CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Банк" IsReadOnly="True" Binding="{Binding Bank}"/>
                     <DataGridTextColumn Header="Сумма кредита" Binding="{Binding Sum, Converter={StaticResource CostConverter}}"/>
@@ -52,8 +52,8 @@
                     <DataGridTextColumn Header="Срок" IsReadOnly="True" Binding="{Binding Mounth}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock  Margin="10" Grid.Row="4" Visibility="{Binding Path= CloseCredit, Converter = {StaticResource BoolToVis}}" Text="Закрытые кредиты" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20"/>
-            <DataGrid HorizontalContentAlignment="Center" x:Name="closeGrid" ItemsSource="{Binding CloseItems}" Visibility="{Binding Path= CloseCredit, Converter = {StaticResource BoolToVis}}" AutoGenerateColumns="False" Grid.Row="5" CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Center">
+            <TextBlock  Margin="10" Grid.Row="4" Visibility="{Binding Path= CloseCredit, Converter = {StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" Text="Закрытые кредиты" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="20"/>
+            <DataGrid HorizontalContentAlignment="Center" x:Name="closeGrid" ItemsSource="{Binding CloseItems}" Visibility="{Binding Path= CloseCredit, Converter = {StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Grid.Row="5" CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Банк" IsReadOnly="True" Binding="{Binding Bank}"/>
                     <DataGridTextColumn Header="Сумма кредита" Binding="{Binding Sum, Converter={StaticResource CostConverter}}"/>

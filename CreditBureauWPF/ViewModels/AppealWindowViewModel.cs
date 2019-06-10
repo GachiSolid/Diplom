@@ -78,7 +78,7 @@ namespace CreditBureauWPF.ViewModels
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Документ Word (*.docx)|*.docx";
             save.FileName = fileName;
-            if (save.ShowDialog() == true)
+            if (save.ShowDialog() == DialogResult)
             {
                 filePath = save.FileName;
                 var doc = DocX.Create(filePath);
